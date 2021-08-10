@@ -18,6 +18,9 @@ public class Tank : MonoBehaviour
     public TankMainGun tankMainGun = new TankMainGun(); // creating a new instance of our tank main gun script
     public GameObject explosionPrefab; // the prefab we will use when we have 0 left to make it go boom!
 
+    // my scripts
+    public TankTurret tankTurret = new TankTurret(); // tank turret script
+
     private void OnEnable()
     {
         TankGameEvents.OnObjectDestroyedEvent += Dead; // add dead function to the event for when a tank is destroyed
@@ -38,6 +41,7 @@ public class Tank : MonoBehaviour
         tankHealth.SetUp(transform); // call the set up function of our tank health script
         tankMovement.SetUp(transform); // calls the set up function of our tank health script
         tankMainGun.SetUp(); // calls the set up function of our tank main gun script
+        tankTurret.SetUp(); // calls the set up function of our tank turret
 
         if(enableTankMovement)
         {
@@ -51,6 +55,7 @@ public class Tank : MonoBehaviour
         // passes in the values from our key input, to our motor to make it move
         tankMovement.HandleMovement(tankControls.ReturnKeyValue(TankControls.KeyType.Movement), tankControls.ReturnKeyValue(TankControls.KeyType.Rotation));
         tankMainGun.UpdateMainGun(tankControls.ReturnKeyValue(TankControls.KeyType.Fire)); // grab the input from the fire key
+        tankTurret.HandleTurret(tankControls.ReturnKeyValue(TankControls.KeyType.Turret)); // grabs the input from the turret key
     }
 
     /// <summary>
@@ -58,8 +63,9 @@ public class Tank : MonoBehaviour
     /// </summary>
     private void EnableInput()
     {
-        tankMovement.EnableTankMovement(true);
-        tankMainGun.EnableShooting(true);
+        tankMovement.EnableTankMovement(true); // allows tank to move
+        tankTurret.EnableTankTurret(true); // allows tank turret to rotate
+        tankMainGun.EnableShooting(true); // allows tank to shoot
     }
 
     /// <summary>
@@ -79,7 +85,7 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            Debug.Log("Damage applied?" + AmountOfDamage);
+            Debug.Log("Damage applied? " + AmountOfDamage);
             tankHealth.ApplyHealthChange(AmountOfDamage);
         }
     }

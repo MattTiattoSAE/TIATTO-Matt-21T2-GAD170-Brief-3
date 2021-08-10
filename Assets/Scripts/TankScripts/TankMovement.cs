@@ -63,7 +63,6 @@ public class TankMovement
         }
         Move(ForwardMovement);
         Turn(RotationMovement);
-
         tankSoundEffects.PlayTankEngine(ForwardMovement, RotationMovement); // update our audio based on our input
     }
 

@@ -26,6 +26,7 @@ public class Tank : MonoBehaviour
         TankGameEvents.OnObjectDestroyedEvent += Dead; // add dead function to the event for when a tank is destroyed
         TankGameEvents.OnObjectTakeDamageEvent += TankTakenDamage; // assign our health function to our event so we can take damage
         TankGameEvents.OnGameStartedEvent += EnableInput; // assign our tank movement function to the game started event
+        TankGameEvents.OnMoveSpeedChangeEvent += ChangeMoveSpeed; // assign the change move speed function to the object stat change event
     }
 
     private void OnDisable()
@@ -33,6 +34,7 @@ public class Tank : MonoBehaviour
         TankGameEvents.OnObjectDestroyedEvent -= Dead; // add dead function to the event for when a tank is destroyed
         TankGameEvents.OnObjectTakeDamageEvent -= TankTakenDamage; // assign our health function to our event so we can take damage
         TankGameEvents.OnGameStartedEvent -= EnableInput; // assign our tank movement function to the game started event
+        TankGameEvents.OnMoveSpeedChangeEvent -= ChangeMoveSpeed; // assign the change move speed function to the object stat change event
     }
 
     // Start is called before the first frame update
@@ -104,5 +106,15 @@ public class Tank : MonoBehaviour
         GameObject clone = Instantiate(explosionPrefab, transform.position,explosionPrefab.transform.rotation); // spawn in our explosion effect
         Destroy(clone, 2); // just cleaning up our particle effect
         gameObject.SetActive(false); // turn off our tank as we are dead
+    }
+
+    private void ChangeMoveSpeed(Transform objTransform, float speedChange)
+    {
+        if(objTransform != transform)
+        {
+            return;
+        }
+
+        tankMovement.ChangeSpeed(speedChange);
     }
 }

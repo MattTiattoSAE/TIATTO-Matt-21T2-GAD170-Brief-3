@@ -5,7 +5,7 @@ using UnityEngine;
 public static class TankGameEvents 
 {
     public delegate void OnObjectDestroyed(Transform TankDestroyed);
-    public delegate void ObjectTakeDamage(Transform ObjectDamaged, float amountOfDamage);
+    public delegate void ObjectStatsModified(Transform ObjectDamaged, float amountOfDamage);
 
     public delegate void SpawnTanksIn(int NumberToSpawn);
     public delegate void OnTanksSpawned(List<GameObject> allTanksSpawnedIn);
@@ -19,6 +19,7 @@ public static class TankGameEvents
 
     public delegate void UpdateScore(PlayerNumber playerNumber, int Amount);
 
+
     /// <summary>
     /// Called when a tank has been destroyed
     /// </summary>
@@ -27,7 +28,12 @@ public static class TankGameEvents
     /// <summary>
     /// Called whenever damage is applied to a tank
     /// </summary>
-    public static ObjectTakeDamage OnObjectTakeDamageEvent;
+    public static ObjectStatsModified OnObjectTakeDamageEvent;
+
+    /// <summary>
+    /// Called whenever the movement speed of the tank is modified
+    /// </summary>
+    public static ObjectStatsModified OnMoveSpeedChangeEvent;
 
     /// <summary>
     /// Called when the tanks should be spawned in
@@ -43,7 +49,6 @@ public static class TankGameEvents
     /// Called when the game should be reset
     /// </summary>
     public static ResetGame OnResetGameEvent;
-
 
     /// <summary>
     /// Called before our game starts might be good for set up stuff

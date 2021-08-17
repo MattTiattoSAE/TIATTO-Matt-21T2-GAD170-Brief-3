@@ -17,7 +17,8 @@ public class TankTurret
     /// </summary>
     public void SetUp()
     {
-        tankTurretTransform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        tankTurretTransform.rotation = new Quaternion(0f,0f,0f,0f);
+        EnableTankTurret(false);
     }
 
     /// <summary>

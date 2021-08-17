@@ -77,11 +77,11 @@ public class TankControls
                 {
                     if (Input.GetKey(turretLeft)) // if we are pressing the turret left button
                     {
-                        currentValue = 1; // the turret is rotating positively
+                        currentValue = -1; // the turret is rotating positively
                     }
                     else if (Input.GetKey(turretRight)) // if we are pressing the turret right button
                     {
-                        currentValue = -1; // the turret is rotating negatively
+                        currentValue = 1; // the turret is rotating negatively
                     }
                     break;
                 }

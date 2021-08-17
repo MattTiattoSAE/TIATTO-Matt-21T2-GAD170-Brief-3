@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class TankMainGun
 {
     public Transform mainGunTransform; // reference to the main gun of the tank
+    public Transform turretTransform; // reference to the tank turret
     public GameObject tankShellPrefab; // reference to the tank prefab we want to fire
 
     public float minLaunchForce = 15f; // the minimum amount of force for our weapon
@@ -89,7 +90,8 @@ public class TankMainGun
         {
             weaponFired = false;
         }
-  
+        //mainGunArrowIndicator.transform.position = new Vector3(mainGunTransform.position.x, 0, mainGunTransform.position.z); // changes the direction of the arrow indicator to match that of the turret rotation
+        //mainGunArrowIndicator.transform.localRotation = Quaternion.AngleAxis(0f, Vector3.right) * mainGunArrowIndicator.transform.rotation; // changes the orientation of the main arrow indicator 
         mainGunArrowIndicator.value = currentLaunchForce; // set our arrow back to min at all times
     }
 

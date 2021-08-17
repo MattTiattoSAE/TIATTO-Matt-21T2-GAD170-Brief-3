@@ -10,6 +10,11 @@ using UnityEngine;
 public class TankMovement 
 {
     public float speed = 12f; // the speed our tank moves
+    private float startingSpeed = 12f; // the speed our tank normally moves
+    
+    public float speedResetTime; // the time it will take for speeed to reset back to normal
+    private float speedTimeUntilReset; // the time elapsed since speed was modified
+
     public float turnSpeed = 180f; // the speed that we can turn in degrees in seconds.
 
     private TankParticleEffects tankParticleEffects = new TankParticleEffects(); // creating a new instance of our tank particle effects class
@@ -19,7 +24,6 @@ public class TankMovement
     private bool enableMovement = true; // if this is true we are allowed to accept input from the player
 
     private Transform tankReference; // a reference to the tank gameobject
-
 
     /// <summary>
     /// Handles the set up of our tank movement script
@@ -40,6 +44,7 @@ public class TankMovement
         tankSoundEffects.SetUp(tankReference);
         tankParticleEffects.PlayDustTrails(true);// start playing tank particle effects
         EnableTankMovement(false);
+        startingSpeed = speed;
     }
 
     /// <summary>
@@ -56,6 +61,10 @@ public class TankMovement
     /// </summary>
     public void HandleMovement(float ForwardMovement, float RotationMovement)
     {
+        if(Time.time >= speedTimeUntilReset)
+        {
+            speed = startingSpeed;
+        }
         // if we can't move don't
         if(enableMovement == false)
         {
@@ -87,6 +96,16 @@ public class TankMovement
 
         // update our rigidboy with this new rotation
         rigidbody.MoveRotation(rigidbody.rotation * turnRotation); // rotate our rigidbody based on our input.
+    }
+
+    public void ChangeSpeed(float speedChange)
+    {
+        if(speed != startingSpeed)
+        {
+            return; 
+        }
+        speed *= speedChange;
+        speedTimeUntilReset = Time.time + speedResetTime;
     }
 }
 
